@@ -1,31 +1,44 @@
+import { useEffect, useState } from "react";
+
 function MarketPrice() {
+  const [prices, setPrices] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/market")
+      .then(res => res.json())
+      .then(data => {
+        console.log("API DATA:", data);
+        setPrices(data || []); // ✅ direct data (no records)
+      })
+      .catch(err => {
+        console.error(err);
+        setPrices([]);
+      });
+  }, []);
+
   return (
-    <div className="content-page">
-      <h1>📊 Market Prices</h1>
+    <div style={{ padding: "40px" }}>
+      <h2>📊 Market Prices</h2>
 
-      <div className="public-grid">
-
-        <div className="public-card">
-          <h3>🌾 Rice</h3>
-          <p>₹ 2,200 / Quintal</p>
-        </div>
-
-        <div className="public-card">
-          <h3>🌽 Maize</h3>
-          <p>₹ 1,850 / Quintal</p>
-        </div>
-
-        <div className="public-card">
-          <h3>🥔 Potato</h3>
-          <p>₹ 1,200 / Quintal</p>
-        </div>
-
-        <div className="public-card">
-          <h3>🌱 Cotton</h3>
-          <p>₹ 6,000 / Quintal</p>
-        </div>
-
-      </div>
+      {prices.length === 0 ? (
+        <p>No data available</p>
+      ) : (
+        prices.map((p, index) => (
+          <div
+            key={index}
+            style={{
+              background: "#f5f5f5",
+              padding: "20px",
+              margin: "10px 0",
+              borderRadius: "10px",
+              boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
+            }}
+          >
+            <h3>{p.cropName}</h3>
+            <p>₹ {p.price} / Quintal</p>
+          </div>
+        ))
+      )}
     </div>
   );
 }

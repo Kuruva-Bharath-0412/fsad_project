@@ -3,17 +3,17 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const role = localStorage.getItem("userRole");
+
+  const role = localStorage.getItem("role");
+  const email = localStorage.getItem("email");
 
   const handleLogout = () => {
-    localStorage.removeItem("userRole");
+    localStorage.clear();
     navigate("/login");
   };
 
   return (
     <nav className="navbar">
-
-      <div className="nav-left"></div>
 
       <div className="nav-title">
         🌾 AgriConnect
@@ -28,45 +28,59 @@ function Navbar() {
           </Link>
         )}
 
-        {/* FARMER NAVBAR */}
+        {/* FARMER */}
         {role === "farmer" && (
           <>
             <Link to="/farmer">Dashboard</Link>
             <Link to="/schemes">Schemes</Link>
             <Link to="/market-price">Market</Link>
-            <button onClick={handleLogout} className="logout-btn">
-              Logout
-            </button>
           </>
         )}
 
-        {/* PUBLIC NAVBAR */}
+        {/* PUBLIC */}
         {role === "public" && (
           <>
             <Link to="/public">Dashboard</Link>
             <Link to="/explore">Explore</Link>
             <Link to="/marketplace">Fresh Vegetables</Link>
             <Link to="/connect">Connect</Link>
-            <button onClick={handleLogout} className="logout-btn">
-              Logout
-            </button>
           </>
         )}
 
-        {/* EXPERT NAVBAR */}
+        {/* EXPERT */}
         {role === "expert" && (
           <>
             <Link to="/expert">Dashboard</Link>
             <Link to="/view-queries">Queries</Link>
             <Link to="/upload-guides">Upload Guides</Link>
-            <button onClick={handleLogout} className="logout-btn">
+          </>
+        )}
+
+        {/* ADMIN (optional if you have) */}
+        {role === "admin" && (
+          <>
+            <Link to="/admin">Dashboard</Link>
+          </>
+        )}
+
+        {/* 🔥 COMMON FOR ALL ROLES */}
+        {email && (
+          <>
+            <span style={{ marginLeft: "20px", color: "white", fontWeight: "500" }}>
+              👤 {email}
+            </span>
+
+            <button
+              onClick={handleLogout}
+              className="logout-btn"
+              style={{ marginLeft: "10px" }}
+            >
               Logout
             </button>
           </>
         )}
 
       </div>
-
     </nav>
   );
 }

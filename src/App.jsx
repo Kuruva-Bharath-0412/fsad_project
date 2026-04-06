@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import FarmerDashboard from "./pages/FarmerDashboard";
 import ExpertDashboard from "./pages/ExpertDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -26,6 +27,15 @@ import Connect from "./pages/Connect";
 import ViewQueries from "./pages/ViewQueries";
 import UploadGuides from "./pages/UploadGuides";
 import AnswerQuestions from "./pages/AnswerQuestions";
+import Verify from "./pages/Verify";
+import AddCrop from "./pages/AddCrop";
+import ViewCrops from "./pages/ViewCrops";
+import FarmerForum from "./pages/FarmerForum";
+import FarmerPosts from "./pages/FarmerPosts";
+import FarmerRequests from "./pages/FarmerRequests";
+import ConnectFarmers from "./pages/ConnectFarmers";
+
+
 
 function App() {
   return (
@@ -34,13 +44,21 @@ function App() {
       <Navbar />
 
       <Routes>
+
+
         <Route path="/" element={<Navigate to="/login" />} />
+
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/farmer-requests" element={<FarmerRequests />} />
+        <Route path="/connect-farmers" element={<ConnectFarmers />} />
 
         <Route path="/public" element={<PublicDashboard />} />
         <Route path="/farmer" element={<FarmerDashboard />} />
         <Route path="/expert" element={<ExpertDashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/farmer-forum" element={<FarmerForum />} />
+        <Route path="/farmer-posts" element={<FarmerPosts />} />
 
         <Route path="/explore" element={<Explore />} />
         <Route path="/benefits" element={<Benefits />} />
@@ -55,6 +73,14 @@ function App() {
 <Route path="/view-queries" element={<ViewQueries />} />
 <Route path="/upload-guides" element={<UploadGuides />} />
 <Route path="/answer-questions" element={<AnswerQuestions />} />
+<Route path="/verify" element={<Verify />} />
+<Route path="/add-crop" element={<AddCrop />} />
+<Route path="/crops" element={<ViewCrops />} />
+
+
+
+
+
       </Routes>
 
       <Footer />

@@ -597,3 +597,77 @@ body {
   border-radius: 10px;
   margin-bottom: 15px;
 }
+
+
+/* ================= CREATE ACCOUNT BUTTON ================= */
+
+.login-box button[type="button"] {
+  margin-top: 10px;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-box button[type="button"]:hover {
+  background: white;
+  color: #2e7d32;
+}
+/* FIX FULL PAGE HEIGHT */
+html, body, #root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+/* MAIN CONTENT SHOULD EXPAND */
+.page-container {
+  flex: 1;
+  padding: 40px;
+  text-align: center;
+}
+
+.market-title {
+  font-size: 32px;
+  color: #1b5e20;
+  margin-bottom: 20px;
+}
+
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.market-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.market-card:hover {
+  transform: translateY(-8px);
+}
+
+.contact-btn {
+  margin-top: 12px;
+  padding: 10px 15px;
+  background: linear-gradient(to right, #2e7d32, #66bb6a);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.contact-btn:hover {
+  background: linear-gradient(to right, #1b5e20, #43a047);
+}

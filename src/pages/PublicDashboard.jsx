@@ -11,7 +11,11 @@ function PublicDashboard() {
     { title: "Government Schemes", icon: "🏛", path: "/schemes" },
     { title: "Fresh Vegetables Marketplace", icon: "🛒", path: "/marketplace" },
     { title: "Join Community Discussions", icon: "💬", path: "/discussion" },
-    { title: "Connect with Farmers", icon: "👨‍🌾", path: "/connect" }
+
+    // ✅ UPDATED HERE
+    { title: "Connect with Farmers", icon: "👨‍🌾", path: "/connect-farmers" },
+
+    { title: "View Crops", icon: "🌾", path: "/crops" }
   ];
 
   return (

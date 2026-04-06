@@ -5,25 +5,55 @@ import bgImage from "../assets/mainpagepic.jpg";
 function Login() {
   const [role, setRole] = useState("farmer");
   const [showPassword, setShowPassword] = useState(false);
+
+  // ✅ ADDED
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    const username = e.target[1].value;
-    const password = e.target[2].value;
+    try {
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+  email: email,
+  password: password,
+  role: role.toUpperCase() // ✅ ADD THIS
+})
+      });
 
-    if (username === "user" && password === "1234") {
-      localStorage.setItem("userRole", role);
-      navigate(`/${role}`);
-    } else {
-      alert("Invalid Username or Password");
+      const result = await response.text();
+      alert(result);
+
+     if (result === "Login successful") {
+
+  // ✅ STORE EMAIL (VERY IMPORTANT)
+  localStorage.setItem("email", email);
+
+  // OPTIONAL (store role also)
+  localStorage.setItem("role", role);
+
+  // ✅ NAVIGATION
+  if (role === "farmer") navigate("/farmer");
+  else if (role === "admin") navigate("/admin");
+  else if (role === "expert") navigate("/expert");
+  else navigate("/public");
+}
+
+    } catch (error) {
+      console.error(error);
+      alert("Error connecting to backend");
     }
   };
 
   return (
     <>
-      {/* ================= LOGIN SECTION ================= */}
       <div
         className="login-page split-layout"
         style={{ backgroundImage: `url(${bgImage})` }}
@@ -67,12 +97,22 @@ function Login() {
                 <option value="admin">🛠 Admin</option>
               </select>
 
-              <input type="text" placeholder="Enter your username" required />
+              {/* ✅ FIXED EMAIL INPUT */}
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
 
+              {/* ✅ FIXED PASSWORD INPUT */}
               <div className="password-wrapper">
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
                 <span
@@ -83,18 +123,22 @@ function Login() {
                 </span>
               </div>
 
-              <button type="submit">Sign In</button>
-            </form>
+              <button type="submit">Login</button>
 
-            <p className="demo-text">
-              Demo credentials: user / 1234
-            </p>
+              <button
+                type="button"
+                onClick={() => navigate("/signup")}
+              >
+                Create Account
+              </button>
+
+            </form>
           </div>
 
         </div>
       </div>
 
-      {/* ================= FEEDBACK SECTION ================= */}
+      {/* FEEDBACK SECTION */}
       <div className="feedback-green-section">
         <div className="feedback-wrapper">
           <h2>🌟 What Our Users Say</h2>
