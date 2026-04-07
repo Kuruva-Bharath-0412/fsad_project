@@ -4,7 +4,7 @@ function MarketPrice() {
   const [prices, setPrices] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/market")
+    fetch("https://fsad-project-backend-bgnq.onrender.com/api/market")
       .then(res => res.json())
       .then(data => {
         console.log("API DATA:", data);

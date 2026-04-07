@@ -12,7 +12,7 @@ function Signup() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/register", {
+      const response = await fetch("https://fsad-project-backend-bgnq.onrender.com/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

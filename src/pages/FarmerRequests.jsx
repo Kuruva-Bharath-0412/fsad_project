@@ -9,14 +9,14 @@ function FarmerRequests() {
 
   // 🔥 Load requests
   useEffect(() => {
-    fetch("http://localhost:8080/api/requests")
+    fetch("https://fsad-project-backend-bgnq.onrender.com/api/requests")
       .then(res => res.json())
       .then(data => {
         setRequests(data);
 
         // 🔥 ALSO LOAD REPLIES
         data.forEach(req => {
-          fetch(`http://localhost:8080/api/replies/${req.id}`)
+          fetch(`https://fsad-project-backend-bgnq.onrender.com/api/replies/${req.id}`)
             .then(res => res.json())
             .then(repData => {
               setReplies(prev => ({
@@ -32,7 +32,7 @@ function FarmerRequests() {
   const handleReply = (requestId) => {
     if (!input[requestId]) return;
 
-    fetch("http://localhost:8080/api/replies", {
+    fetch("https://fsad-project-backend-bgnq.onrender.com/api/replies", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -50,7 +50,7 @@ function FarmerRequests() {
         setInput({ ...input, [requestId]: "" });
 
         // 🔥 RELOAD REPLIES (IMPORTANT)
-        fetch(`http://localhost:8080/api/replies/${requestId}`)
+        fetch(`https://fsad-project-backend-bgnq.onrender.com/api/replies/${requestId}`)
           .then(res => res.json())
           .then(repData => {
             setReplies(prev => ({

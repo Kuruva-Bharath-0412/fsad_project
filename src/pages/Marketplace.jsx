@@ -4,7 +4,7 @@ function Marketplace() {
   const [crops, setCrops] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/crops")
+    fetch("https://fsad-project-backend-bgnq.onrender.com/crops")
       .then((res) => res.json())
       .then((data) => setCrops(data))
       .catch((err) => console.error(err));

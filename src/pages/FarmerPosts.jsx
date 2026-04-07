@@ -4,7 +4,7 @@ function FarmerPosts() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/posts")
+    fetch("https://fsad-project-backend-bgnq.onrender.com/api/posts")
       .then(res => res.json())
       .then(data => setPosts(data));
   }, []);

@@ -10,7 +10,7 @@ function Verify() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/verify", {
+      const response = await fetch("https://fsad-project-backend-bgnq.onrender.com/verify", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -4,7 +4,7 @@ function Schemes() {
   const [schemes, setSchemes] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/schemes")
+    fetch("https://fsad-project-backend-bgnq.onrender.com/api/schemes")
       .then(res => res.json())
       .then(data => setSchemes(data))
       .catch(err => console.error(err));
