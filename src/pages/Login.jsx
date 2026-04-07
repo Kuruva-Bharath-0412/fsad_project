@@ -16,7 +16,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/login", {
+      const response = await fetch("https://fsad-project-backend-bgnq.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
