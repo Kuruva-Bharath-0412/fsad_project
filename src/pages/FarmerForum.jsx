@@ -7,19 +7,19 @@ function FarmerForum() {
   const email = localStorage.getItem("email");
   const role = localStorage.getItem("role");
 
-  // 🔥 Load all posts
+  // 🔥 Load all posts (LOCALHOST)
   useEffect(() => {
-    fetch("https://fsad-project-backend-bgnq.onrender.com/api/posts")
+    fetch("http://localhost:8080/api/posts")
       .then(res => res.json())
       .then(data => setPosts(data))
       .catch(err => console.error(err));
   }, []);
 
-  // 🔥 Public user posts
+  // 🔥 Public user posts (LOCALHOST)
   const handlePost = () => {
     if (!message) return;
 
-    fetch("https://fsad-project-backend-bgnq.onrender.com/api/posts", {
+    fetch("http://localhost:8080/api/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -33,7 +33,8 @@ function FarmerForum() {
       .then(() => {
         setMessage("");
         window.location.reload(); // refresh
-      });
+      })
+      .catch(err => console.error(err));
   };
 
   return (

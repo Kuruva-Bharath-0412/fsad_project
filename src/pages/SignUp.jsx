@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("FARMER"); // ✅ added role
+  const [role, setRole] = useState("FARMER");
 
   const navigate = useNavigate();
 
@@ -12,26 +12,26 @@ function Signup() {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://fsad-project-backend-bgnq.onrender.com/register", {
+      const response = await fetch("http://localhost:8080/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          email: email,
-          password: password,
-          role: role   // ✅ send role
+          email,
+          password,
+          role
         })
       });
 
       const result = await response.text();
-
       alert(result);
 
-      // ✅ go to OTP page instead of login
-      if (result === "OTP sent to email") {
-        navigate("/verify");
-      }
+      // ✅ VERY IMPORTANT (STORE EMAIL HERE)
+      localStorage.setItem("email", email);
+
+      // ✅ ALWAYS GO TO VERIFY
+      navigate("/verify");
 
     } catch (error) {
       console.error("Error:", error);
@@ -64,12 +64,11 @@ function Signup() {
 
         <br /><br />
 
-        {/* ✅ ROLE DROPDOWN */}
         <select value={role} onChange={(e) => setRole(e.target.value)}>
           <option value="FARMER">Farmer</option>
-<option value="PUBLIC">Public-User</option>
-<option value="EXPERT">Expert</option>
-<option value="ADMIN">Admin</option>
+          <option value="PUBLIC">Public-User</option>
+          <option value="EXPERT">Expert</option>
+          <option value="ADMIN">Admin</option>
         </select>
 
         <br /><br />

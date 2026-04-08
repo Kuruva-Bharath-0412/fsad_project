@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Verify() {
-  const [email, setEmail] = useState("");
+  const [email] = useState(localStorage.getItem("email") || "");
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
 
@@ -10,22 +10,26 @@ function Verify() {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://fsad-project-backend-bgnq.onrender.com/verify", {
+      const response = await fetch("http://localhost:8080/verify", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ email, otp })
+        body: JSON.stringify({
+          email,
+          otp
+        })
       });
 
       const result = await response.text();
       alert(result);
 
       if (result === "Account verified") {
-        navigate("/");
+        navigate("/login");
       }
 
     } catch (error) {
+      console.error(error);
       alert("Error verifying OTP");
     }
   };
@@ -34,17 +38,9 @@ function Verify() {
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h2>Verify OTP</h2>
 
+      <p><b>Email:</b> {email}</p>
+
       <form onSubmit={handleVerify}>
-        <input
-          type="email"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-
-        <br /><br />
-
         <input
           type="text"
           placeholder="Enter OTP"
@@ -61,4 +57,4 @@ function Verify() {
   );
 }
 
-export default Verify; // ✅ THIS LINE WAS MISSING
+export default Verify;
