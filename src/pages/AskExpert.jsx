@@ -64,7 +64,7 @@ function AskExpert() {
 
   return (
     <div className="content-page">
-      <h1>👨‍🔬 Ask Agricultural Expert</h1>
+      <h1>👨‍🔬 Ask-Agricultural-Expert</h1>
 
       {/* 🔹 SELECT EXPERT */}
       <select
