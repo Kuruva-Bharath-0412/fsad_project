@@ -34,8 +34,8 @@ import FarmerForum from "./pages/FarmerForum";
 import FarmerPosts from "./pages/FarmerPosts";
 import FarmerRequests from "./pages/FarmerRequests";
 import ConnectFarmers from "./pages/ConnectFarmers";
-
-
+import AddMarketPrice from "./pages/AddMarketPrice";
+import AddMarket from "./pages/AddMarket";
 
 function App() {
   return (
@@ -43,45 +43,49 @@ function App() {
 
       <Navbar />
 
-      <Routes>
+      {/* ✅ MAIN CONTENT AREA */}
+      <div className="main-content">
+        <Routes>
 
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
 
-        <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/farmer-requests" element={<FarmerRequests />} />
+          <Route path="/connect-farmers" element={<ConnectFarmers />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/farmer-requests" element={<FarmerRequests />} />
-        <Route path="/connect-farmers" element={<ConnectFarmers />} />
+          <Route path="/public" element={<PublicDashboard />} />
+          <Route path="/farmer" element={<FarmerDashboard />} />
+          <Route path="/expert" element={<ExpertDashboard />} />
+          <Route path="/admin" element={<AdminDashboard />} />
 
-        <Route path="/public" element={<PublicDashboard />} />
-        <Route path="/farmer" element={<FarmerDashboard />} />
-        <Route path="/expert" element={<ExpertDashboard />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/farmer-forum" element={<FarmerForum />} />
-        <Route path="/farmer-posts" element={<FarmerPosts />} />
+          <Route path="/farmer-forum" element={<FarmerForum />} />
+          <Route path="/farmer-posts" element={<FarmerPosts />} />
 
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/benefits" element={<Benefits />} />
-        <Route path="/sustainable" element={<Sustainable />} />
-        <Route path="/videos" element={<Videos />} />
-        <Route path="/schemes" element={<Schemes />} />
-<Route path="/ask-expert" element={<AskExpert />} />
-<Route path="/market-price" element={<MarketPrice />} />
-<Route path="/market-price" element={<MarketPrice />} />
-<Route path="/marketplace" element={<Marketplace />} />
-<Route path="/connect" element={<Connect />} />
-<Route path="/view-queries" element={<ViewQueries />} />
-<Route path="/upload-guides" element={<UploadGuides />} />
-<Route path="/answer-questions" element={<AnswerQuestions />} />
-<Route path="/verify" element={<Verify />} />
-<Route path="/add-crop" element={<AddCrop />} />
-<Route path="/crops" element={<ViewCrops />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/benefits" element={<Benefits />} />
+          <Route path="/sustainable" element={<Sustainable />} />
+          <Route path="/videos" element={<Videos />} />
+          <Route path="/schemes" element={<Schemes />} />
 
+          <Route path="/ask-expert" element={<AskExpert />} />
+          <Route path="/market-price" element={<MarketPrice />} />
+          <Route path="/marketplace" element={<Marketplace />} />
+          <Route path="/connect" element={<Connect />} />
 
+          <Route path="/view-queries" element={<ViewQueries />} />
+          <Route path="/upload-guides" element={<UploadGuides />} />
+          <Route path="/answer-questions" element={<AnswerQuestions />} />
 
+          <Route path="/verify" element={<Verify />} />
+          <Route path="/add-crop" element={<AddCrop />} />
+          <Route path="/crops" element={<ViewCrops />} />
 
+          <Route path="/add-market" element={<AddMarket />} />
+          <Route path="/add-market-price" element={<AddMarketPrice />} />
 
-      </Routes>
+        </Routes>
+      </div>
 
       <Footer />
 

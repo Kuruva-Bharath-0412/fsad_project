@@ -18,17 +18,20 @@ function AskExpert() {
 
   // 🔹 Load my questions + replies
   const loadMyQuestions = () => {
+    if (!loggedInEmail) return;
+
     fetch(`http://localhost:8080/farmer-questions/${loggedInEmail}`)
       .then(res => res.json())
       .then(data => setPosts(data))
       .catch(err => console.error(err));
   };
 
+  // ✅ FIX: reload when email changes
   useEffect(() => {
-    if (loggedInEmail) loadMyQuestions();
-  }, []);
+    loadMyQuestions();
+  }, [loggedInEmail]);
 
-  // 🔹 Send question to backend
+  // 🔹 Send question
   const handlePost = async () => {
     if (question.trim() === "") return;
 
@@ -54,6 +57,8 @@ function AskExpert() {
       alert(result);
 
       setQuestion("");
+
+      // ✅ FIX: refresh questions after posting
       loadMyQuestions();
 
     } catch (err) {
@@ -117,6 +122,10 @@ function AskExpert() {
 
       {/* 🔹 DISPLAY QUESTIONS + ANSWERS */}
       <div style={{ marginTop: "30px" }}>
+        {posts.length === 0 && (
+          <p style={{ color: "gray" }}>No questions yet...</p>
+        )}
+
         {posts.map((p) => (
           <div key={p.id} className="scheme-card">
             <p><b>Q:</b> {p.question}</p>

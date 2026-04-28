@@ -864,3 +864,32 @@ html, body {
   transform: translateY(-8px);
   background: #ede7f6;
 }
+
+/* ✅ MARKET PRICE UI FIX */
+.market-box {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  width: 400px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.market-box input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.market-box button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(to right, #7b1fa2, #512da8);
+  color: white;
+  cursor: pointer;
+}

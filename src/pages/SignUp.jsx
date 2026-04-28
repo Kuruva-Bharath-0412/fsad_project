@@ -8,8 +8,23 @@ function Signup() {
 
   const navigate = useNavigate();
 
+  // ✅ PASSWORD VALIDATION FUNCTION
+  const isValidPassword = (password) => {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+    return regex.test(password);
+  };
+
   const handleSignup = async (e) => {
     e.preventDefault();
+
+    // ✅ CHECK PASSWORD BEFORE SENDING
+    if (!isValidPassword(password)) {
+      alert(
+        "Password must be at least 8 characters and include:\n• 1 uppercase\n• 1 lowercase\n• 1 number\n• 1 special character"
+      );
+      return;
+    }
 
     try {
       const response = await fetch("http://localhost:8080/register", {
@@ -27,10 +42,7 @@ function Signup() {
       const result = await response.text();
       alert(result);
 
-      // ✅ VERY IMPORTANT (STORE EMAIL HERE)
       localStorage.setItem("email", email);
-
-      // ✅ ALWAYS GO TO VERIFY
       navigate("/verify");
 
     } catch (error) {
@@ -62,7 +74,12 @@ function Signup() {
           required
         />
 
-        <br /><br />
+        {/* ✅ PASSWORD RULE HINT */}
+        <p style={{ fontSize: "12px", color: "gray" }}>
+          Password must be 8+ chars with uppercase, lowercase, number & special character
+        </p>
+
+        <br />
 
         <select value={role} onChange={(e) => setRole(e.target.value)}>
           <option value="FARMER">Farmer</option>

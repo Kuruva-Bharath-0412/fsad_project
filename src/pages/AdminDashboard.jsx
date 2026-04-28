@@ -1,50 +1,71 @@
-import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function AnswerQuestions() {
-  const [answer, setAnswer] = useState("");
-  const [answers, setAnswers] = useState([]);
-
-  const handleSubmit = () => {
-    if (answer.trim() === "") return;
-    setAnswers([...answers, answer]);
-    setAnswer("");
-  };
+function AdminDashboard() {
+  const navigate = useNavigate();
 
   return (
-    <div className="answer-page">
+    <div style={pageStyle}>
+      <h1 style={titleStyle}>🛠 Admin Dashboard</h1>
 
-      {/* TOP SECTION */}
-      <div className="answer-top">
-        <h2 className="answer-title">✍ Answer Farmer Questions</h2>
-        <p className="answer-subtitle">
-          Provide professional guidance and expert farming solutions
-        </p>
-      </div>
+      <div style={gridStyle}>
 
-      {/* BOTTOM SECTION */}
-      <div className="answer-content">
-
-        <div className="answer-box">
-          <textarea
-            placeholder="Write your expert answer here..."
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-          />
-          <button onClick={handleSubmit}>Post Answer</button>
+        <div style={cardStyle} onClick={() => navigate("/add-market")}>
+          <h2 style={iconStyle}>📊</h2>
+          <h3>Add Market Prices</h3>
+          <p>Update crop prices</p>
         </div>
 
-        <div className="answers-list">
-          {answers.map((item, index) => (
-            <div key={index} className="answer-card">
-              {item}
-            </div>
-          ))}
+        <div style={cardStyle} onClick={() => navigate("/answer-questions")}>
+          <h2 style={iconStyle}>✍</h2>
+          <h3>Answer Questions</h3>
+          <p>Respond to farmers</p>
         </div>
 
       </div>
-
     </div>
   );
 }
 
-export default AnswerQuestions;
+/* ===== STYLES ===== */
+
+const pageStyle = {
+  minHeight: "100vh",
+  background: "linear-gradient(135deg, #141e30, #243b55)",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "40px"
+};
+
+const titleStyle = {
+  color: "white",
+  marginBottom: "40px",
+  fontSize: "32px",
+  fontWeight: "600"
+};
+
+const gridStyle = {
+  display: "flex",
+  gap: "40px",
+  flexWrap: "wrap",
+  justifyContent: "center"
+};
+
+const cardStyle = {
+  background: "rgba(255,255,255,0.95)",
+  padding: "35px",
+  borderRadius: "20px",
+  cursor: "pointer",
+  width: "260px",
+  textAlign: "center",
+  boxShadow: "0 15px 35px rgba(0,0,0,0.3)",
+  transition: "0.3s"
+};
+
+const iconStyle = {
+  fontSize: "40px",
+  marginBottom: "10px"
+};
+
+export default AdminDashboard;

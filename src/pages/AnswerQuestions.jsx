@@ -1,93 +1,127 @@
 import React, { useState, useEffect } from "react";
 
 function AnswerQuestions() {
-
-  // ❌ REMOVE old answer array logic
-  // const [answers, setAnswers] = useState([]);
-
-  // ✅ NEW STATES
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
 
-  const email = localStorage.getItem("email");
+  const expertEmail = localStorage.getItem("email");
 
-  // 🔹 Load questions for this expert
+  // ✅ Load only this expert's questions
   const loadQuestions = () => {
-    fetch(`http://localhost:8080/expert-questions/${email}`)
+    fetch(`http://localhost:8080/expert-questions/${expertEmail}`)
       .then(res => res.json())
-      .then(data => setQuestions(data))
-      .catch(err => console.error(err));
+      .then(data => setQuestions(data));
   };
 
   useEffect(() => {
-    if (email) loadQuestions();
-  }, []);
+    loadQuestions();
+  }, [expertEmail]);
 
-  // 🔹 Handle typing
+  // typing handler
   const handleChange = (id, value) => {
     setAnswers({ ...answers, [id]: value });
   };
 
-  // 🔹 Submit answer
-  const handleSubmit = async (id) => {
+  // submit answer
+  const handleSubmit = (q) => {
+    const answer = answers[q.id];
+    if (!answer) return;
 
-    const answer = answers[id];
-
-    if (!answer || answer.trim() === "") return;
-
-    try {
-      const res = await fetch("http://localhost:8080/reply", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          id: id,
-          answer: answer
-        })
+    fetch("http://localhost:8080/reply", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: q.id,
+        answer: answer
+      })
+    })
+      .then(res => res.text())
+      .then(() => {
+        alert("Answer submitted!");
+        setAnswers({ ...answers, [q.id]: "" });
+        loadQuestions(); // refresh
       });
-
-      const result = await res.text();
-      alert(result);
-
-      loadQuestions(); // refresh after reply
-
-    } catch (err) {
-      console.error(err);
-      alert("Error sending reply");
-    }
   };
 
   return (
-    <div className="content-page">
-      <h1>✍ Answer Farmer Questions</h1>
+    <div style={pageStyle}>
+      <h1 style={{ color: "white" }}>✍ Answer Questions</h1>
 
-      <div className="guide-list">
+      {questions.map((q) => (
+        <div key={q.id} style={cardStyle}>
+          <p><b>Farmer:</b> {q.farmer?.email}</p>
+          <p><b>Question:</b> {q.question}</p>
 
-        {questions.map((q) => (
-          <div key={q.id} className="guide-card">
+          {/* ✅ IF ANSWER EXISTS → SHOW ONLY TEXT */}
+          {q.answer ? (
+            <p><b>Answer:</b> {q.answer}</p>
+          ) : (
+            <>
+              <textarea
+                value={answers[q.id] || ""}
+                onChange={(e) => handleChange(q.id, e.target.value)}
+                placeholder="Write answer..."
+                style={inputStyle}
+              />
 
-            {/* ✅ SHOW QUESTION */}
-            <p><b>Question:</b> {q.question}</p>
-
-            {/* ✅ INPUT FOR ANSWER */}
-            <textarea
-              placeholder="Write your expert answer here..."
-              value={answers[q.id] || ""}
-              onChange={(e) => handleChange(q.id, e.target.value)}
-            />
-
-            {/* ✅ SUBMIT BUTTON */}
-            <button onClick={() => handleSubmit(q.id)}>
-              Post Answer
-            </button>
-
-          </div>
-        ))}
-
-      </div>
+              <button
+                onClick={() => handleSubmit(q)}
+                style={btnStyle}
+              >
+                Submit Answer
+              </button>
+            </>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
+const pageStyle = {
+  minHeight: "100vh",
+  background: "linear-gradient(135deg, #0f2027, #203a43)",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  padding: "40px",
+  paddingBottom: "120px" // ✅ prevents overlap with footer
+};
+
+const containerStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+  gap: "20px",
+  width: "90%",
+  maxWidth: "900px"
+};
+
+const cardStyle = {
+  background: "white",
+  padding: "15px",
+  borderRadius: "10px",
+  width: "100%",
+  boxShadow: "0 4px 10px rgba(0,0,0,0.2)"
+};
+
+const inputStyle = {
+  width: "100%",
+  height: "70px",
+  marginTop: "8px",
+  marginBottom: "8px",
+  fontSize: "14px"
+};
+
+
+const btnStyle = {
+  width: "100%",
+  padding: "8px",
+  background: "#0072ff",
+  color: "white",
+  border: "none",
+  borderRadius: "5px",
+  fontSize: "14px"
+};
 
 export default AnswerQuestions;

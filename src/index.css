@@ -671,3 +671,132 @@ html, body, #root {
 .contact-btn:hover {
   background: linear-gradient(to right, #1b5e20, #43a047);
 }
+
+/* ================= ANSWER PAGE FIX ================= */
+
+.answer-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.answer-top {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.answer-title {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.answer-subtitle {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* MARKET BOX */
+.market-box {
+  background: white;
+  padding: 30px;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 25px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+
+.market-box h3 {
+  color: #3f51b5;
+}
+
+.market-box input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.market-box button {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(to right, #ff6a00, #ee0979);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ANSWER BOX */
+.answer-box {
+  background: white;
+  padding: 30px;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 25px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+
+.answer-box textarea {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.answer-box button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(to right, #36d1dc, #5b86e5);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ANSWERS LIST */
+.answers-list {
+  width: 100%;
+  max-width: 500px;
+}
+
+.answer-card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* ===== FIX FOOTER STICK TO BOTTOM ===== */
+
+html, body, #root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+/* THIS IS MAIN FIX */
+.main-content {
+  flex: 1;
+}
+
+/* CHANGE THIS */
+.footer {
+  margin-top: auto;
+}
+

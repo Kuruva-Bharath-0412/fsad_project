@@ -8,25 +8,34 @@ function FarmerRequests() {
   const farmerEmail = localStorage.getItem("email");
 
   // 🔥 Load requests
-  useEffect(() => {
-    fetch("http://localhost:8080/api/requests")
-      .then(res => res.json())
-      .then(data => {
-        setRequests(data);
+ useEffect(() => {
+  fetch("http://localhost:8080/api/requests")
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("Failed to fetch requests");
+      }
+      return res.json();
+    })
+    .then(data => {
+      setRequests(data);
 
-        // 🔥 ALSO LOAD REPLIES
-        data.forEach(req => {
-          fetch(`http://localhost:8080/api/replies/${req.id}`)
-            .then(res => res.json())
-            .then(repData => {
-              setReplies(prev => ({
-                ...prev,
-                [req.id]: repData
-              }));
-            });
-        });
+      data.forEach(req => {
+        fetch(`http://localhost:8080/api/replies/${req.id}`)
+          .then(res => res.json())
+          .then(repData => {
+            setReplies(prev => ({
+              ...prev,
+              [req.id]: repData
+            }));
+          })
+          .catch(err => console.error("Replies error:", err));
       });
-  }, []);
+    })
+    .catch(err => {
+      console.error("Requests error:", err);
+      alert("Error loading requests. Check backend.");
+    });
+}, []);
 
   // 🔥 SEND REPLY
   const handleReply = (requestId) => {
